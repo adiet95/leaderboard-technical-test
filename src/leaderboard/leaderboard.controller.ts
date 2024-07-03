@@ -1,15 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request, Req, Res, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
 import { LeaderboardService } from './leaderboard.service';
 import { JwtGuard } from 'src/auth/jwt/jwt.guard';
-import { PostLeaderboardDto } from './dto/create-leaderboard.dto';
-import { User } from 'src/auth/user.decorator';
+import { GetLeaderboardDto, PostLeaderboardDto } from './dto/create-leaderboard.dto';
+import { User } from 'src/user/entities/user.entity';
+import { use } from 'passport';
 
-@Controller('leaderboard')
+@Controller()
 export class LeaderboardController {
   constructor(private readonly leaderboardService: LeaderboardService) {}
 
   @UseGuards(JwtGuard)
-  @Post()
+  @Post('scores')
   postScore(@Req() req, @Body() updateLeaderboardDto: PostLeaderboardDto) {
     let userId: number
     if(req.user.role == 'admin'){
@@ -25,8 +26,9 @@ export class LeaderboardController {
   }
 
   @UseGuards(JwtGuard)
-  @Get()
-  findAll() {
+  @Get('leaderboard')
+  @UseInterceptors(ClassSerializerInterceptor)
+  findAll(){
     return this.leaderboardService.findAll();
   }
 }

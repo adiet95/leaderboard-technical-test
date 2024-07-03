@@ -1,15 +1,30 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, ForbiddenException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, ForbiddenException, Inject} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto, UserIdDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtGuard } from 'src/auth/jwt/jwt.guard';
+import { SkipThrottle } from '@nestjs/throttler';
+import { Logger } from 'winston';
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { RealIP } from 'nestjs-real-ip';
 
+@SkipThrottle()
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService, 
+    @Inject(WINSTON_MODULE_NEST_PROVIDER) private readonly logger: Logger,
+  ) {}
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
+  @Post('register')
+  create(@Body() createUserDto: CreateUserDto, @RealIP() ip: string) {
+    this.logger.log('Post create()', UserController.name, ip);
+    try {
+      this.logger.log('Post create()', UserController.name, ip)
+    } catch (e) {
+      this.logger.error('Post create()', e.stack, UserController.name, ip);
+    }
+
     return this.userService.create(createUserDto);
   }
 

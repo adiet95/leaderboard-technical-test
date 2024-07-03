@@ -12,7 +12,10 @@ export class UserService {
     @InjectRepository(User) private userRepo : Repository<User>
   ){}
   create(createUserDto: CreateUserDto) {
-    createUserDto.role = 'user'
+    if(createUserDto.role == '' || createUserDto.role == undefined || createUserDto.role == 'admin'){
+      createUserDto.role = 'user'
+    }
+
     createUserDto.password = this.hash(createUserDto.password)
     return this.userRepo.save(createUserDto);
   }

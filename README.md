@@ -13,31 +13,24 @@ docker compose up
 ## Database
 
 <p>Database design just for testing</p>
-<h4>Users - Mongodb</h4>
-<img src="./screenshots/users-collections.png"/>
-
-<h4>Redis</h4>
-<img src="./screenshots/redis-keys.png"/>
-
-<h4>Redis - One User</h4>
-<img src="./screenshots/user-info.png"/>
-
-<h4>Redis - Leaderboard</h4>
-<img src="./screenshots/leaderboard.png"/>
+<h4>Users - PostgreSQL</h4>
+<img src="https://ibb.co.com/qCWS7pB"/>
 
 ## Endpoints
 
-<h4>POST - Create User (Signup)</h4>
+<h4>POST - Create User (Register)</h4>
 
-`http://localhost:3000/users`
+`http://localhost:3000/user/register`
 
 <p>Parameters</p>
 
 ```
 {
-    "email": "john@gmail.com",
-    "password": "123456",
-    "username": "John"
+   "name": "adiet alimudin",
+   "username": "adiet",
+   "password": "test12345",
+   "role": "admin",
+   "score": 500 
 }
 ```
 
@@ -45,23 +38,27 @@ docker compose up
 
 ```
 {
-    "username": "John",
-    "email": "john@gmail.com",
-    "score": 0,
-    "_id": "63e658ce51a9bd1f5b48e4ba"
+    "name": "adiet alimudin",
+    "username": "adiet22",
+    "password": "$2b$10$iKrIcQHpgY7Ivfkld0KWLOIlgOaoOwlIwlC11Kzsf0.kPr.oN1Gxa",
+    "score": 500,
+    "role": "admin",
+    "id": 30,
+    "createdAt": "2024-07-03T21:14:24.033Z",
+    "updatedAt": "2024-07-03T21:14:24.033Z"
 }
 ```
 
-<h4>PATCH - Update User's Score</h4>
+<h4>POST - Login </h4>
 
-`http://localhost:3000/users`
+`http://localhost:3000/auth`
 
 <p>Parameters</p>
 
 ```
 {
-    "userId": "63e658ce51a9bd1f5b48e4ba",
-    "score": 100
+   "username": "adiet22",
+   "password": "Goenjhat"
 }
 ```
 
@@ -69,66 +66,89 @@ docker compose up
 
 ```
 {
-    "_id": "63e658ce51a9bd1f5b48e4ba",
-    "username": "John",
-    "email": "john@gmail.com",
-    "score": 100,
-    "__v": 0
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzIwMDQxODIyLCJleHAiOjE3MjAwODUwMjJ9._eBxrNBDsM0CP4HkcOEnp81L6VT39-0A7ZFlAhRnhMI"
+}
+```
+
+<h4>POST - Update User's Score</h4>
+
+`http://localhost:3000/scores`
+
+<p>Parameters</p>
+
+```
+{
+    "name": "adiet22",
+    "score": 1000
+}
+```
+
+<p>Response</p>
+
+```
+{
+    "name": "adiet28",
+    "score": 1000,
+    "id": 30,
+    "updatedAt": "2024-07-03T21:25:44.000Z"
 }
 ```
 
 <h4>GET - Leaderboard</h4>
 
-`http://localhost:3000/users/leaderboard?page=1&perPage=10`
+<img src="https://ibb.co.com/xJb7wZ7"/>
+
+`http://localhost:3000/leaderboard`
 
 <p>Response</p>
 
 ```
 [
-    {
-        "username": "John",
-        "email": "john@gmail.com",
-        "score": "1000"
+     {
+        "name": "adiet28",
+        "score": 1000
     },
     {
-        "username": "Hary",
-        "email": "hary@gmail.com",
-        "score": "900"
+        "name": "test3",
+        "score": 800
     },
     {
-        "username": "Henry",
-        "email": "henry@gmail.com",
-        "score": "800"
+        "name": "adiet4",
+        "score": 500
     },
     {
-        "username": "Maria",
-        "email": "maria@gmail.com",
-        "score": "700"
+        "name": "adiet7",
+        "score": 500
     },
     {
-        "username": "Tony",
-        "email": "tony@gmail.com",
-        "score": "600"
+        "name": "adiet8",
+        "score": 500
     },
     {
-        "username": "Tom",
-        "email": "tom@gmail.com",
-        "score": "500"
+        "name": "adiet9",
+        "score": 500
     },
     {
-        "username": "Susan",
-        "email": "susan@gmail.com",
-        "score": "400"
+        "name": "adiet10",
+        "score": 500
     },
     {
-        "username": "Jack",
-        "email": "jack@gmail.com",
-        "score": "300"
+        "name": "adiet11",
+        "score": 500
     },
     {
-        "username": "Linda",
-        "email": "linda@gmail.com",
-        "score": "200"
+        "name": "adiet23",
+        "score": 500
+    },
+    {
+        "name": "adiet24",
+        "score": 500
     }
 ]
 ```
+
+## Logging
+
+<h4>Logging Data</h4>
+
+<img src="https://ibb.co.com/d0pFkhv"/>

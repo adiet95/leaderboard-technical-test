@@ -27,6 +27,7 @@ export class UserDto {
     @IsNumber()
     score : number
 
+    @IsOptional()
     role : string
 }
 
