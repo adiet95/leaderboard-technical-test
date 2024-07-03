@@ -151,4 +151,4 @@ docker compose up
 
 <h4>Logging Data</h4>
 
-<img src="https://ibb.co.com/d0pFkhv"/>
+<img src="https://i.ibb.co.com/3yF2SJb/Screenshot-2024-07-04-035158.png"/>
