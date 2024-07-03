@@ -14,7 +14,7 @@ docker compose up
 
 <p>Database design just for testing</p>
 <h4>Users - PostgreSQL</h4>
-<img src="https://ibb.co.com/qCWS7pB"/>
+<img src="https://i.ibb.co.com/1Mdg7TZ/database.png"/>
 
 ## Endpoints
 
@@ -96,7 +96,7 @@ docker compose up
 
 <h4>GET - Leaderboard</h4>
 
-<img src="https://ibb.co.com/xJb7wZ7"/>
+<img src="https://i.ibb.co.com/ZWrMv9M/Screenshot-2024-07-04-050840.png"/>
 
 `http://localhost:3000/leaderboard`
 
