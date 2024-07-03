@@ -9,6 +9,11 @@ $ npm install
 ```bash
 docker compose up
 ```
+or running locally
+
+```bash
+npm run start:dev
+```
 
 ## Database
 
